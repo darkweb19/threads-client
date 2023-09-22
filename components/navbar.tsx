@@ -5,7 +5,7 @@ import { GoHome } from "react-icons/go";
 import { FiSearch } from "react-icons/fi";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
-import Link from "next/link";
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function NavBar() {
 	return (
@@ -67,9 +67,17 @@ export default function NavBar() {
 						</li>
 					</ul>
 				</div>
-				<div className="col-span-2 flex justify-center items-center mt-3">
+				<div className="col-span-2 flex gap-2 justify-center items-center mt-3">
 					<div className="text-3xl text-gray-600 cursor-pointer">
 						<HiMiniBars3BottomRight />
+					</div>
+					<div className=" m-2 p-2 cursor-pointer items-center">
+						<GoogleLogin
+							shape="circle"
+							size="large"
+							text="signin"
+							onSuccess={(cred) => console.log(cred)}
+						/>
 					</div>
 				</div>
 			</div>
