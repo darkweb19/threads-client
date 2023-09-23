@@ -5,9 +5,28 @@ import { GoHome } from "react-icons/go";
 import { FiSearch } from "react-icons/fi";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
-import { GoogleLogin } from "@react-oauth/google";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import toast from "react-hot-toast";
+import { useCallback } from "react";
+import { graphqlClient } from "@/clients/api";
+import { verifyUserGoogleTokenQuery } from "@/graphql/query/user";
 
 export default function NavBar() {
+	//hadnle google login
+	const handleGoogleLogin = useCallback(async (cred: CredentialResponse) => {
+		const googleToken = cred.credential;
+		if (!googleToken) return toast.error("Google token not found");
+		const { verifyGoogleToken } = await graphqlClient.request(
+			verifyUserGoogleTokenQuery,
+			{
+				token: googleToken,
+			}
+		);
+
+		toast.success("verify successs");
+		console.log(verifyGoogleToken);
+	}, []);
+
 	return (
 		<div className="h-20 fixed top-0 bottom-0 left-0 backdrop-blur-xl">
 			<div className="grid ml-6 grid-cols-7">
@@ -76,7 +95,7 @@ export default function NavBar() {
 							shape="circle"
 							size="large"
 							text="signin"
-							onSuccess={(cred) => console.log(cred)}
+							onSuccess={handleGoogleLogin}
 						/>
 					</div>
 				</div>
