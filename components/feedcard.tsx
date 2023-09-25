@@ -4,8 +4,11 @@ import { FaRegComment, FaRetweet } from "react-icons/fa6";
 import { AiOutlineHeart } from "react-icons/ai";
 import { TbLocationShare } from "react-icons/tb";
 import { MdVerified } from "react-icons/md";
+import { useCurrentUser } from "@/hooks/user";
 
 export default function FeedCard() {
+	const { user } = useCurrentUser();
+	console.log(user?.getCurrentUser);
 	return (
 		<div className="border-b border-gray-700 p-3 h-fit">
 			<div className="flex items-center gap-2">
