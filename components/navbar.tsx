@@ -13,6 +13,7 @@ import { verifyUserGoogleTokenQuery } from "@/graphql/query/user";
 import { useCurrentUser } from "@/hooks/user";
 import Logout from "./logout";
 import { useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
 
 export default function NavBar() {
 	const { user } = useCurrentUser();
@@ -34,6 +35,7 @@ export default function NavBar() {
 			if (verifyGoogleToken)
 				window.localStorage.setItem("google_token", verifyGoogleToken);
 
+			//! this will change the state  to the current user state
 			await queryClient.invalidateQueries(["current-user"]);
 		},
 		[queryClient]
@@ -102,7 +104,20 @@ export default function NavBar() {
 					<div className="text-3xl text-gray-600 cursor-pointer">
 						<HiMiniBars3BottomRight />
 					</div>
-					<div className=" m-2 p-2 cursor-pointer items-center">
+					<div>
+						{user?.getCurrentUser?.profileImageUrl ? (
+							<Image
+								className="px-2 py-2 rounded-full"
+								src={user?.getCurrentUser?.profileImageUrl}
+								alt="user image"
+								width={60}
+								height={60}
+							/>
+						) : null}
+					</div>
+					<div className=" p-1 cursor-pointer items-center">
+						{/* if user is present then login button will be displayed
+						else logout button is displayed */}
 						{user?.getCurrentUser == null ? (
 							<GoogleLogin
 								shape="circle"
