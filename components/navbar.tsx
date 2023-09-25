@@ -23,8 +23,11 @@ export default function NavBar() {
 			}
 		);
 
-		toast.success("verify successs");
 		console.log(verifyGoogleToken);
+		toast.success("verify successs");
+
+		if (verifyGoogleToken)
+			window.localStorage.setItem("google_token", verifyGoogleToken);
 	}, []);
 
 	return (
