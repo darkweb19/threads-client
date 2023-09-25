@@ -10,25 +10,34 @@ import toast from "react-hot-toast";
 import { useCallback } from "react";
 import { graphqlClient } from "@/clients/api";
 import { verifyUserGoogleTokenQuery } from "@/graphql/query/user";
+import { useCurrentUser } from "@/hooks/user";
+import Logout from "./logout";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function NavBar() {
+	const { user } = useCurrentUser();
+
+	const queryClient = useQueryClient();
 	//hadnle google login
-	const handleGoogleLogin = useCallback(async (cred: CredentialResponse) => {
-		const googleToken = cred.credential;
-		if (!googleToken) return toast.error("Google token not found");
-		const { verifyGoogleToken } = await graphqlClient.request(
-			verifyUserGoogleTokenQuery,
-			{
-				token: googleToken,
-			}
-		);
+	const handleGoogleLogin = useCallback(
+		async (cred: CredentialResponse) => {
+			const googleToken = cred.credential;
+			if (!googleToken) return toast.error("Google token not found");
+			const { verifyGoogleToken } = await graphqlClient.request(
+				verifyUserGoogleTokenQuery,
+				{
+					token: googleToken,
+				}
+			);
+			toast.success("verify successs");
 
-		console.log(verifyGoogleToken);
-		toast.success("verify successs");
+			if (verifyGoogleToken)
+				window.localStorage.setItem("google_token", verifyGoogleToken);
 
-		if (verifyGoogleToken)
-			window.localStorage.setItem("google_token", verifyGoogleToken);
-	}, []);
+			await queryClient.invalidateQueries(["current-user"]);
+		},
+		[queryClient]
+	);
 
 	return (
 		<div className="h-20 fixed top-0 bottom-0 left-0 backdrop-blur-xl">
@@ -94,12 +103,16 @@ export default function NavBar() {
 						<HiMiniBars3BottomRight />
 					</div>
 					<div className=" m-2 p-2 cursor-pointer items-center">
-						<GoogleLogin
-							shape="circle"
-							size="large"
-							text="signin"
-							onSuccess={handleGoogleLogin}
-						/>
+						{user?.getCurrentUser == null ? (
+							<GoogleLogin
+								shape="circle"
+								size="large"
+								text="signin"
+								onSuccess={handleGoogleLogin}
+							/>
+						) : (
+							<Logout />
+						)}
 					</div>
 				</div>
 			</div>
