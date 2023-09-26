@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import { FaRegComment, FaRetweet } from "react-icons/fa6";
 import { AiOutlineHeart } from "react-icons/ai";
