@@ -1,6 +1,6 @@
-import FeedCard from "@/components/feedcard";
 import NavBar from "@/components/navbar";
 import HeadingPost from "@/components/headingPost";
+import Thread from "@/components/Thread";
 
 export default function Home() {
 	return (
@@ -14,15 +14,7 @@ export default function Home() {
 					<div className="col-span-3 px-5">
 						<HeadingPost />
 						{/* threads post  */}
-						<div>
-							<FeedCard />
-							<FeedCard />
-							<FeedCard />
-							<FeedCard />
-							<FeedCard />
-							<FeedCard />
-							<FeedCard />
-						</div>
+						<Thread />
 					</div>
 					<div className="col-span-2"></div>
 				</div>
