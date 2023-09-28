@@ -58,11 +58,13 @@ export default function NavBar() {
 								<GoHome />
 							</li>
 						</Link>
-						<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
-							<span>
-								<FiSearch />
-							</span>
-						</li>
+						<Link href="/search">
+							<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
+								<span>
+									<FiSearch />
+								</span>
+							</li>
+						</Link>
 						<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
 							<span>
 								<svg
