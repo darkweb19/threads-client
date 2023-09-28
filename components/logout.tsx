@@ -8,6 +8,7 @@ export default function Logout() {
 
 	const handleLogout = useCallback(async () => {
 		window.localStorage.removeItem("google_token");
+		window.localStorage.removeItem("savedUser");
 		toast.success("Logout success");
 		// this will change the state  to the current user state
 		await queryClient.invalidateQueries(["current-user"]);
