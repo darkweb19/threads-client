@@ -16,6 +16,16 @@ export const getCurrentUserQuery = graphql(`
 			firstName
 			lastName
 			profileImageUrl
+			threads {
+				content
+				id
+				author {
+					id
+					firstName
+					lastName
+					profileImageUrl
+				}
+			}
 		}
 	}
 `);

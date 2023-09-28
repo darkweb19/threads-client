@@ -9,8 +9,10 @@ export default function Thread() {
 
 	return (
 		<div>
-			{threads?.map((thread) =>
-				thread ? <FeedCard data={thread as Thread} /> : null
+			{threads?.map((thread: any) =>
+				thread ? (
+					<FeedCard key={thread.id} data={thread as Thread} />
+				) : null
 			)}
 		</div>
 	);

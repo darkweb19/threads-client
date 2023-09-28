@@ -2,5 +2,9 @@ import { graphql } from "@/gql";
 
 export const createThreadMutation = graphql(`
 	#graphql
-	query 
+	mutation CreateThread($payload: CreateThreadData!) {
+		createThread(payload: $payload) {
+			id
+		}
+	}
 `);

@@ -14,9 +14,17 @@ import { useCurrentUser } from "@/hooks/user";
 import Logout from "./logout";
 import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function NavBar() {
 	const { user } = useCurrentUser();
+	{
+		user?.getCurrentUser &&
+			window.localStorage.setItem(
+				"savedUser",
+				JSON.stringify(user?.getCurrentUser)
+			);
+	}
 
 	const queryClient = useQueryClient();
 	//hadnle google login
@@ -32,8 +40,9 @@ export default function NavBar() {
 			);
 			toast.success("verify successs");
 
-			if (verifyGoogleToken)
+			if (verifyGoogleToken) {
 				window.localStorage.setItem("google_token", verifyGoogleToken);
+			}
 
 			//! this will change the state  to the current user state
 			await queryClient.invalidateQueries(["current-user"]);
@@ -52,9 +61,9 @@ export default function NavBar() {
 				<div className="col-span-3 px-10 ">
 					<ul className="flex items-center gap-2 mt-2 cursor-pointer justify-center">
 						<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
-							<span>
+							<Link href="/">
 								<GoHome />
-							</span>
+							</Link>
 						</li>
 						<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
 							<span>
@@ -94,9 +103,9 @@ export default function NavBar() {
 							</span>
 						</li>
 						<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
-							<span>
+							<Link href="/12">
 								<BiUser />
-							</span>
+							</Link>
 						</li>
 					</ul>
 				</div>
