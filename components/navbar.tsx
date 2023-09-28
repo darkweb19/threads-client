@@ -90,12 +90,14 @@ export default function NavBar() {
 								</svg>
 							</span>
 						</li>
+
 						<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
 							<span>
 								<AiOutlineHeart />
 							</span>
 						</li>
-						<Link href="/12">
+
+						<Link href={`/${user?.getCurrentUser?.id}`}>
 							<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
 								<BiUser />
 							</li>
