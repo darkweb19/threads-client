@@ -6,7 +6,6 @@ import { Thread } from "@/gql/graphql";
 
 export default function Thread() {
 	const { threads = [] } = useGetAllThreads();
-
 	return (
 		<div>
 			{threads?.map((thread: any) =>

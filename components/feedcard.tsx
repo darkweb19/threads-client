@@ -4,6 +4,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { TbLocationShare } from "react-icons/tb";
 import { MdVerified } from "react-icons/md";
 import { Thread } from "@/gql/graphql";
+import Link from "next/link";
 interface FeedCardProps {
 	data: Thread;
 }
@@ -21,9 +22,12 @@ const FeedCard: React.FC<FeedCardProps> = ({ data }) => {
 						height={40}
 					/>
 				)}
-				<p className="font-semibold text-md">
+				<Link
+					href={`/${data.author?.id}`}
+					className="font-semibold text-md"
+				>
 					{data.author?.firstName} {data.author?.lastName}
-				</p>
+				</Link>
 				<MdVerified className="text-blue-700" />
 			</div>
 			<div className="border-l text-gray-200 border-gray-500 p-3 mt-2 w-3/4 ml-5">

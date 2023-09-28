@@ -1,15 +1,17 @@
-"use client";
 import NavBar from "@/components/navbar";
-import { useCurrentUser } from "@/hooks/user";
 import Image from "next/image";
 import { BsInstagram } from "react-icons/bs";
 import React from "react";
 import Link from "next/link";
 import FeedCard from "@/components/feedcard";
 import { Thread } from "@/gql/graphql";
+import { graphqlClient } from "@/clients/api";
+import { getUserByIdQuery } from "@/graphql/query/user";
 
-export default function page() {
-	const { user } = useCurrentUser();
+export default async function page({ params }: { params: { id: string } }) {
+	const { getUserById } = await graphqlClient.request(getUserByIdQuery, {
+		id: params.id,
+	});
 
 	return (
 		<div className="h-screen relative w-screen ">
@@ -22,17 +24,14 @@ export default function page() {
 							<div className="flex items-center justify-between mt-2 ">
 								<div className="h-fit px-2">
 									<span className="text-2xl font-semibold">
-										{user?.getCurrentUser?.firstName}{" "}
-										{user?.getCurrentUser?.lastName}
+										{getUserById?.firstName}{" "}
+										{getUserById?.lastName}
 									</span>
 								</div>
 								<div>
-									{user?.getCurrentUser?.profileImageUrl && (
+									{getUserById?.profileImageUrl && (
 										<Image
-											src={
-												user?.getCurrentUser
-													.profileImageUrl
-											}
+											src={getUserById.profileImageUrl}
 											className="rounded-full"
 											alt="profile image"
 											width={70}
@@ -65,7 +64,7 @@ export default function page() {
 								<div className="h-full">Repost</div>
 							</div>
 							<div>
-								{user?.getCurrentUser?.threads?.map((thread) =>
+								{getUserById?.threads?.map((thread) =>
 									thread ? (
 										<FeedCard
 											key={thread.id}
