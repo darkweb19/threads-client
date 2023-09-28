@@ -7,6 +7,7 @@ export const getAllThreadsQuery = graphql(`
 			id
 			content
 			author {
+				id
 				firstName
 				lastName
 				profileImageUrl
