@@ -11,10 +11,6 @@ import { Thread } from "@/gql/graphql";
 export default function page() {
 	const { user } = useCurrentUser();
 
-	const savedUser = JSON.parse(
-		window.localStorage.getItem("savedUser") as string
-	);
-
 	return (
 		<div className="h-screen relative w-screen ">
 			<NavBar />
@@ -26,14 +22,17 @@ export default function page() {
 							<div className="flex items-center justify-between mt-2 ">
 								<div className="h-fit px-2">
 									<span className="text-2xl font-semibold">
-										{savedUser?.firstName}{" "}
-										{savedUser?.lastName}
+										{user?.getCurrentUser?.firstName}{" "}
+										{user?.getCurrentUser?.lastName}
 									</span>
 								</div>
 								<div>
-									{savedUser?.profileImageUrl && (
+									{user?.getCurrentUser?.profileImageUrl && (
 										<Image
-											src={savedUser.profileImageUrl}
+											src={
+												user?.getCurrentUser
+													.profileImageUrl
+											}
 											className="rounded-full"
 											alt="profile image"
 											width={70}

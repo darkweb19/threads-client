@@ -18,13 +18,6 @@ import Link from "next/link";
 
 export default function NavBar() {
 	const { user } = useCurrentUser();
-	{
-		user?.getCurrentUser &&
-			window.localStorage.setItem(
-				"savedUser",
-				JSON.stringify(user?.getCurrentUser)
-			);
-	}
 
 	const queryClient = useQueryClient();
 	//hadnle google login
@@ -60,11 +53,11 @@ export default function NavBar() {
 				</div>
 				<div className="col-span-3 px-10 ">
 					<ul className="flex items-center gap-2 mt-2 cursor-pointer justify-center">
-						<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
-							<Link href="/">
+						<Link href="/">
+							<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
 								<GoHome />
-							</Link>
-						</li>
+							</li>
+						</Link>
 						<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
 							<span>
 								<FiSearch />
@@ -102,11 +95,11 @@ export default function NavBar() {
 								<AiOutlineHeart />
 							</span>
 						</li>
-						<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
-							<Link href="/12">
+						<Link href="/12">
+							<li className="text-3xl px-8 py-4 rounded-lg hover:bg-gray-900 text-slate-600">
 								<BiUser />
-							</Link>
-						</li>
+							</li>
+						</Link>
 					</ul>
 				</div>
 				<div className="col-span-2 flex gap-2 justify-center items-center mt-3">
